@@ -9,9 +9,9 @@ library(tmap)
 library(tmaptools)
 library(tidyverse) #include dplyr
 
-setwd("E:/DataAnalys/OX2_SeasonPatternFish")
+setwd("D:/DataAnalys/OX2_SeasonPatternFish")
 #df=read.csv("Kattegatt_FishBits.csv", header = TRUE, sep=',')
-df=read.csv("Kattegatt_CPUE_0927 .csv", header = TRUE, sep=',')
+df=read.csv("Kattegatt_FishBits.csv", header = TRUE, sep=',')
 
 levels(df)=c("Quarter 1", "Quarter 4")
 o=gsub("1","Quarter 1",df$Quarter)
@@ -32,9 +32,10 @@ specVec=c("Nephrops norvegicus")
 id = grep(specVec, dfY$Species)
 dfSpec=dfY[id,]
 dfSpec$CPUE_number_per_hour
+names(dfSpec)[names(dfSpec) == "CPUE_number_per_hour"] = "CPUE"
+
 
 cordDf=data.frame(row.names = seq(1, length(dfSpec$ShootLat)))
-
 cordDf$lon = dfSpec$ShootLong
 cordDf$lat = dfSpec$ShootLat
 
@@ -70,16 +71,6 @@ tmaptools::palette_explorer()
 head(NLD_muni)
 head(myMap)
 tm2 <- tm_shape(NLD_muni) + tm_bubbles(size = "population")
-
-
-
-
-
-
-
-
-
-
 
 
 for(art in specVec){
