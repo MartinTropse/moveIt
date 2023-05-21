@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="TingstadeProfil" id="TingstadeProfil">
+	<SimpleField name="fid" type="float"></SimpleField>
+	<SimpleField name="HistoriskProfil_Aprox" type="int"></SimpleField>
+	<SimpleField name="Sediment_Aprox" type="float"></SimpleField>
+	<SimpleField name="distance" type="float"></SimpleField>
+	<SimpleField name="_WGS84x" type="float"></SimpleField>
+	<SimpleField name="_WGS84y" type="float"></SimpleField>
+	<SimpleField name="_Swe99x" type="float"></SimpleField>
+	<SimpleField name="_Swe99y" type="float"></SimpleField>
+</Schema>
+<Folder><name>TingstadeProfil</name>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">1</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">6</SimpleData>
+		<SimpleData name="Sediment_Aprox">0.5</SimpleData>
+		<SimpleData name="distance">79.1512766163275</SimpleData>
+		<SimpleData name="_WGS84x">18.6407488736</SimpleData>
+		<SimpleData name="_WGS84y">57.7231134593</SimpleData>
+		<SimpleData name="_Swe99x">716797.701584851</SimpleData>
+		<SimpleData name="_Swe99y">6403710.92797332</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.64074887357,57.7231134592895</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">2</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">7</SimpleData>
+		<SimpleData name="Sediment_Aprox">1</SimpleData>
+		<SimpleData name="distance">93.7114559300725</SimpleData>
+		<SimpleData name="_WGS84x">18.640554731</SimpleData>
+		<SimpleData name="_WGS84y">57.7231928163</SimpleData>
+		<SimpleData name="_Swe99x">716785.672728132</SimpleData>
+		<SimpleData name="_Swe99y">6403719.1334287</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6405547310427,57.7231928163288</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">3</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">8</SimpleData>
+		<SimpleData name="Sediment_Aprox">1.5</SimpleData>
+		<SimpleData name="distance">104.672351398674</SimpleData>
+		<SimpleData name="_WGS84x">18.6404080978</SimpleData>
+		<SimpleData name="_WGS84y">57.723252222</SimpleData>
+		<SimpleData name="_Swe99x">716776.590709696</SimpleData>
+		<SimpleData name="_Swe99y">6403725.27179175</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6404080978352,57.7232522220373</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">4</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">9</SimpleData>
+		<SimpleData name="Sediment_Aprox">2</SimpleData>
+		<SimpleData name="distance">132.134466354542</SimpleData>
+		<SimpleData name="_WGS84x">18.6400437618</SimpleData>
+		<SimpleData name="_WGS84y">57.7234031559</SimpleData>
+		<SimpleData name="_Swe99x">716754.00503497</SimpleData>
+		<SimpleData name="_Swe99y">6403740.89411754</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6400437618309,57.7234031559313</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">5</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">10</SimpleData>
+		<SimpleData name="Sediment_Aprox">3</SimpleData>
+		<SimpleData name="distance">167.332247677257</SimpleData>
+		<SimpleData name="_WGS84x">18.6395797579</SimpleData>
+		<SimpleData name="_WGS84y">57.723598644</SimpleData>
+		<SimpleData name="_Swe99x">716725.221540523</SimpleData>
+		<SimpleData name="_Swe99y">6403761.15339948</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6395797579427,57.7235986439769</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">6</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">11</SimpleData>
+		<SimpleData name="Sediment_Aprox">3.5</SimpleData>
+		<SimpleData name="distance">190.882774193119</SimpleData>
+		<SimpleData name="_WGS84x">18.6392680542</SimpleData>
+		<SimpleData name="_WGS84y">57.7237285893</SimpleData>
+		<SimpleData name="_Swe99x">716705.894062114</SimpleData>
+		<SimpleData name="_Swe99y">6403774.60984391</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6392680541535,57.7237285892637</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">7</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">12</SimpleData>
+		<SimpleData name="Sediment_Aprox">3.5</SimpleData>
+		<SimpleData name="distance">221.318276985941</SimpleData>
+		<SimpleData name="_WGS84x">18.6388643109</SimpleData>
+		<SimpleData name="_WGS84y">57.7238958977</SimpleData>
+		<SimpleData name="_Swe99x">716680.865808128</SimpleData>
+		<SimpleData name="_Swe99y">6403791.92781918</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6388643109146,57.7238958976777</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">8</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">13</SimpleData>
+		<SimpleData name="Sediment_Aprox">3.5</SimpleData>
+		<SimpleData name="distance">254.403237363618</SimpleData>
+		<SimpleData name="_WGS84x">18.6384273449</SimpleData>
+		<SimpleData name="_WGS84y">57.7240790939</SimpleData>
+		<SimpleData name="_Swe99x">716653.765616886</SimpleData>
+		<SimpleData name="_Swe99y">6403810.90687663</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6384273448643,57.7240790939083</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">9</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">14</SimpleData>
+		<SimpleData name="Sediment_Aprox">3.5</SimpleData>
+		<SimpleData name="distance">283.662209675623</SimpleData>
+		<SimpleData name="_WGS84x">18.6380413907</SimpleData>
+		<SimpleData name="_WGS84y">57.7242414358</SimpleData>
+		<SimpleData name="_Swe99x">716629.826162475</SimpleData>
+		<SimpleData name="_Swe99y">6403827.7296399</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6380413907139,57.7242414357841</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">10</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">15</SimpleData>
+		<SimpleData name="Sediment_Aprox">4</SimpleData>
+		<SimpleData name="distance">301.015693075763</SimpleData>
+		<SimpleData name="_WGS84x">18.6378106406</SimpleData>
+		<SimpleData name="_WGS84y">57.7243364575</SimpleData>
+		<SimpleData name="_Swe99x">716615.525776154</SimpleData>
+		<SimpleData name="_Swe99y">6403837.56088918</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6378106405869,57.7243364575459</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">11</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">16</SimpleData>
+		<SimpleData name="Sediment_Aprox">4</SimpleData>
+		<SimpleData name="distance">344.17545805778</SimpleData>
+		<SimpleData name="_WGS84x">18.6372405643</SimpleData>
+		<SimpleData name="_WGS84y">57.7245754107</SimpleData>
+		<SimpleData name="_Swe99x">716580.171369782</SimpleData>
+		<SimpleData name="_Swe99y">6403862.31655713</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6372405642906,57.7245754106768</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">12</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">17</SimpleData>
+		<SimpleData name="Sediment_Aprox">5</SimpleData>
+		<SimpleData name="distance">385.055301342637</SimpleData>
+		<SimpleData name="_WGS84x">18.6366975056</SimpleData>
+		<SimpleData name="_WGS84y">57.7247996174</SimpleData>
+		<SimpleData name="_Swe99x">716546.513369178</SimpleData>
+		<SimpleData name="_Swe99y">6403885.51865828</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6366975055698,57.7247996174061</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">13</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">18</SimpleData>
+		<SimpleData name="Sediment_Aprox">6</SimpleData>
+		<SimpleData name="distance">422.523721429023</SimpleData>
+		<SimpleData name="_WGS84x">18.6362045725</SimpleData>
+		<SimpleData name="_WGS84y">57.7250084166</SimpleData>
+		<SimpleData name="_Swe99x">716515.930821751</SimpleData>
+		<SimpleData name="_Swe99y">6403907.16750154</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6362045725057,57.7250084166093</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">14</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">19</SimpleData>
+		<SimpleData name="Sediment_Aprox">5</SimpleData>
+		<SimpleData name="distance">452.189889370741</SimpleData>
+		<SimpleData name="_WGS84x">18.6358128689</SimpleData>
+		<SimpleData name="_WGS84y">57.7251727648</SimpleData>
+		<SimpleData name="_Swe99x">716491.63837647</SimpleData>
+		<SimpleData name="_Swe99y">6403924.19584681</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6358128688761,57.7251727648264</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">15</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">24</SimpleData>
+		<SimpleData name="Sediment_Aprox">3.5</SimpleData>
+		<SimpleData name="distance">525.769115008492</SimpleData>
+		<SimpleData name="_WGS84x">18.6348368492</SimpleData>
+		<SimpleData name="_WGS84y">57.7255773061</SimpleData>
+		<SimpleData name="_Swe99x">716431.138752027</SimpleData>
+		<SimpleData name="_Swe99y">6403966.07366567</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6348368492291,57.7255773060655</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">16</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">33</SimpleData>
+		<SimpleData name="Sediment_Aprox">3.5</SimpleData>
+		<SimpleData name="distance">571.933532981187</SimpleData>
+		<SimpleData name="_WGS84x">18.634225594</SimpleData>
+		<SimpleData name="_WGS84y">57.7258318853</SimpleData>
+		<SimpleData name="_Swe99x">716393.242762355</SimpleData>
+		<SimpleData name="_Swe99y">6403992.43743039</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6342255940169,57.7258318853151</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">17</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">25</SimpleData>
+		<SimpleData name="Sediment_Aprox">3</SimpleData>
+		<SimpleData name="distance">624.545858659195</SimpleData>
+		<SimpleData name="_WGS84x">18.6335275576</SimpleData>
+		<SimpleData name="_WGS84y">57.7261210609</SimpleData>
+		<SimpleData name="_Swe99x">716349.976447358</SimpleData>
+		<SimpleData name="_Swe99y">6404022.37247812</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6335275576487,57.7261210608632</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">20</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">27</SimpleData>
+		<SimpleData name="Sediment_Aprox">3</SimpleData>
+		<SimpleData name="distance">640.347137267177</SimpleData>
+		<SimpleData name="_WGS84x">18.6333220281</SimpleData>
+		<SimpleData name="_WGS84y">57.7262107356</SimpleData>
+		<SimpleData name="_Swe99x">716337.210198301</SimpleData>
+		<SimpleData name="_Swe99y">6404031.69051149</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6333220280552,57.7262107356246</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">21</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">26</SimpleData>
+		<SimpleData name="Sediment_Aprox">3.5</SimpleData>
+		<SimpleData name="distance">654.111096685608</SimpleData>
+		<SimpleData name="_WGS84x">18.6331389559</SimpleData>
+		<SimpleData name="_WGS84y">57.7262860739</SimpleData>
+		<SimpleData name="_Swe99x">716325.866017825</SimpleData>
+		<SimpleData name="_Swe99y">6404039.48565172</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6331389558974,57.726286073882</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">22</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">20</SimpleData>
+		<SimpleData name="Sediment_Aprox">5</SimpleData>
+		<SimpleData name="distance">669.079672321299</SimpleData>
+		<SimpleData name="_WGS84x">18.6329399889</SimpleData>
+		<SimpleData name="_WGS84y">57.7263680934</SimpleData>
+		<SimpleData name="_Swe99x">716313.536113898</SimpleData>
+		<SimpleData name="_Swe99y">6404047.97321058</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6329399888502,57.7263680933547</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">23</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">21</SimpleData>
+		<SimpleData name="Sediment_Aprox">6</SimpleData>
+		<SimpleData name="distance">690.040512737784</SimpleData>
+		<SimpleData name="_WGS84x">18.6326613411</SimpleData>
+		<SimpleData name="_WGS84y">57.726482927</SimpleData>
+		<SimpleData name="_Swe99x">716296.268708037</SimpleData>
+		<SimpleData name="_Swe99y">6404059.85626695</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.632661341052,57.7264829270216</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">24</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">22</SimpleData>
+		<SimpleData name="Sediment_Aprox">6</SimpleData>
+		<SimpleData name="distance">729.451455841062</SimpleData>
+		<SimpleData name="_WGS84x">18.6321422409</SimpleData>
+		<SimpleData name="_WGS84y">57.726702149</SimpleData>
+		<SimpleData name="_Swe99x">716264.069472559</SimpleData>
+		<SimpleData name="_Swe99y">6404082.58272667</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6321422408984,57.7267021489999</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">25</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">23</SimpleData>
+		<SimpleData name="Sediment_Aprox">5.5</SimpleData>
+		<SimpleData name="distance">768.451145529562</SimpleData>
+		<SimpleData name="_WGS84x">18.6316266364</SimpleData>
+		<SimpleData name="_WGS84y">57.7269177666</SimpleData>
+		<SimpleData name="_Swe99x">716232.100130209</SimpleData>
+		<SimpleData name="_Swe99y">6404104.91967775</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6316266363727,57.7269177666108</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">26</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">28</SimpleData>
+		<SimpleData name="Sediment_Aprox">3.5</SimpleData>
+		<SimpleData name="distance">814.738323639885</SimpleData>
+		<SimpleData name="_WGS84x">18.6310129217</SimpleData>
+		<SimpleData name="_WGS84y">57.7271724668</SimpleData>
+		<SimpleData name="_Swe99x">716194.059679582</SimpleData>
+		<SimpleData name="_Swe99y">6404131.29085601</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6310129217123,57.7271724667649</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">27</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">29</SimpleData>
+		<SimpleData name="Sediment_Aprox">5</SimpleData>
+		<SimpleData name="distance">848.998563261003</SimpleData>
+		<SimpleData name="_WGS84x">18.630553514</SimpleData>
+		<SimpleData name="_WGS84y">57.7273574473</SimpleData>
+		<SimpleData name="_Swe99x">716165.618002515</SimpleData>
+		<SimpleData name="_Swe99y">6404150.39991717</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6305535139853,57.7273574472674</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">28</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">30</SimpleData>
+		<SimpleData name="Sediment_Aprox">5</SimpleData>
+		<SimpleData name="distance">898.435870939585</SimpleData>
+		<SimpleData name="_WGS84x">18.6299032731</SimpleData>
+		<SimpleData name="_WGS84y">57.7276330868</SimpleData>
+		<SimpleData name="_Swe99x">716125.27995895</SimpleData>
+		<SimpleData name="_Swe99y">6404178.98424871</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6299032730941,57.7276330867719</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">29</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">31</SimpleData>
+		<SimpleData name="Sediment_Aprox">3.5</SimpleData>
+		<SimpleData name="distance">1096.75784491342</SimpleData>
+		<SimpleData name="_WGS84x">18.6272768318</SimpleData>
+		<SimpleData name="_WGS84y">57.7287265462</SimpleData>
+		<SimpleData name="_Swe99x">715962.471728263</SimpleData>
+		<SimpleData name="_Swe99y">6404292.23218008</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6272768318282,57.7287265462278</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#TingstadeProfil">
+		<SimpleData name="fid">30</SimpleData>
+		<SimpleData name="HistoriskProfil_Aprox">32</SimpleData>
+		<SimpleData name="Sediment_Aprox">3</SimpleData>
+		<SimpleData name="distance">1177.22000608033</SimpleData>
+		<SimpleData name="_WGS84x">18.6262171848</SimpleData>
+		<SimpleData name="_WGS84y">57.7291742724</SimpleData>
+		<SimpleData name="_Swe99x">715896.749633657</SimpleData>
+		<SimpleData name="_Swe99y">6404338.65462711</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>18.6262171848214,57.7291742723841</coordinates></Point>
+  </Placemark>
+</Folder>
+</Document></kml>
