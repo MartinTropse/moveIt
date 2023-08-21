@@ -137,3 +137,9 @@ num_dict = {"1":"en",
             "7":"sju",
             "8":"åtta",
             "9":"nio"}
+
+def letter(index):
+    if 0 <= index < 26:
+        return chr(ord('A') + index)
+    else:
+        return None  # Handle out-of-range indices
