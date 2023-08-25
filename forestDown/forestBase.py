@@ -108,10 +108,10 @@ def forestAreamap(downPath, prjCode, expand_factor, move_left_factor, dpi = 300)
     map_frame.camera.setExtent(project_area_extentClose)
     small_frame.camera.setExtent(project_area_extentFar)
 
-    output_path = os.path.join(prjPath, (prjCode + "_SurveyAreaMap.jpg"))
+    output_path = os.path.join(downPath, (prjCode + "_SurveyAreaMap.jpg"))
 
     layout.exportToJPEG(output_path, resolution=dpi)
-    aprx.saveACopy(os.path.join(prjPath, prjCode + "_SurveyAreaMap.aprx"))
+    aprx.saveACopy(os.path.join(downPath, prjCode + "_SurveyAreaMap.aprx"))
     print(f"Copied map image and ArcGIS-projekt file to\n{output_path}")
     return output_path
 
