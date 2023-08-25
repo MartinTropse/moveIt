@@ -3,10 +3,11 @@ import re
 import arcpy
 from arcpy import env
 
-def forestAreamap(downPath, prjCode, expand_factor = 2, move_left_factor = 0.2, dpi = 300):
+def forestAreamap(downPath, prjCode, expand_factor, move_left_factor, dpi = 300):
     # Loop that goes through the download folders and identifies the geodatabases.
     gdbPaths = []
     prjCode2 = prjCode[:-1]
+
     for bDir, sDir, mFiles in os.walk(downPath):
         for folder in sDir:
             try:
@@ -35,7 +36,7 @@ def forestAreamap(downPath, prjCode, expand_factor = 2, move_left_factor = 0.2, 
     BuffGdb = [i for i in layerPaths if re.search(BuffRgx, i)][0]
     projAreaList = [AreaGdb, BuffGdb]
 
-    aprx_path = os.path.join(prjPath, "forestBlank.aprx")
+    aprx_path = os.path.join(downPath, "forestBlank.aprx")
     aprx = arcpy.mp.ArcGISProject(aprx_path)
     m = aprx.listMaps("Map")[0]
     s = aprx.listMaps("Small")[0]
@@ -43,9 +44,10 @@ def forestAreamap(downPath, prjCode, expand_factor = 2, move_left_factor = 0.2, 
     for gdbLyr in projAreaList:
         arcpy.env.workspace = os.path.split(gdbLyr)[0]
         featureLyr = os.path.basename(gdbLyr)
+        arcpy.MakeFeatureLayer_management(gdbLyr, featureLyr)
         gdbPath, layer = os.path.split(gdbLyr) 
         lyrxName = layer + ".lyrx"
-        lyrxPath = os.path.join(downPath, lyrxExp)
+        lyrxPath = os.path.join(downPath, lyrxName)
         arcpy.management.SaveToLayerFile(layer, lyrxPath)
         lyrxLayer = arcpy.mp.LayerFile(lyrxPath)
         m.addLayer(lyrxLayer)
@@ -69,6 +71,7 @@ def forestAreamap(downPath, prjCode, expand_factor = 2, move_left_factor = 0.2, 
             project_area_extentFar.YMin -= height * 16
             project_area_extentFar.XMax += width * 16
             project_area_extentFar.YMax += height * 16
+
     BuffGdb = os.path.normpath(BuffGdb)
     buffName = BuffGdb.split(os.sep)[len(BuffGdb.split(os.sep)) - 1]
 
