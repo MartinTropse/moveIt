@@ -3,14 +3,11 @@ import re
 import arcpy
 from arcpy import env
 
-
-def forestAreamap(prjPath, prjCode, xDim=1.1, yDim=1.1, dpi=300):
-    if bool(re.search("(?i)[a-z]$", prjCode)):
-        prjCode2 = prjCode[:-1]
-
+def forestAreamap(downPath, prjCode, expand_factor = 2, move_left_factor = 0.2, dpi = 300):
     # Loop that goes through the download folders and identifies the geodatabases.
     gdbPaths = []
-    for bDir, sDir, mFiles in os.walk(prjPath):
+    prjCode2 = prjCode[:-1]
+    for bDir, sDir, mFiles in os.walk(downPath):
         for folder in sDir:
             try:
                 if (hasattr(re.search(f"{prjCode}.+\.gdb$", folder), "group")):
@@ -38,35 +35,40 @@ def forestAreamap(prjPath, prjCode, xDim=1.1, yDim=1.1, dpi=300):
     BuffGdb = [i for i in layerPaths if re.search(BuffRgx, i)][0]
     projAreaList = [AreaGdb, BuffGdb]
 
-    aprx_path = os.path.join(prjPath, "Blank.aprx")
+    aprx_path = os.path.join(prjPath, "forestBlank.aprx")
     aprx = arcpy.mp.ArcGISProject(aprx_path)
     m = aprx.listMaps("Map")[0]
+    s = aprx.listMaps("Small")[0]
 
-    xmax = 0
-    xmin = 1000000000
-    ymax = 0
-    ymin = 1000000000
-
-    for gdbLayer in projAreaList:
-        gdbPath, layer = os.path.split(gdbLayer)
-        fldPath = os.path.split(gdbPath)
-        lyrxExp = layer + ".lyrx"
-        tempLayer = arcpy.MakeFeatureLayer_management(gdbLayer, layer)
-        arcpy.env.workspace = fldPath[0]
-        arcpy.management.SaveToLayerFile(layer, lyrxExp)
-        lyrxLayer = arcpy.mp.LayerFile(os.path.join(fldPath[0], lyrxExp))
+    for gdbLyr in projAreaList:
+        arcpy.env.workspace = os.path.split(gdbLyr)[0]
+        featureLyr = os.path.basename(gdbLyr)
+        gdbPath, layer = os.path.split(gdbLyr) 
+        lyrxName = layer + ".lyrx"
+        lyrxPath = os.path.join(downPath, lyrxExp)
+        arcpy.management.SaveToLayerFile(layer, lyrxPath)
+        lyrxLayer = arcpy.mp.LayerFile(lyrxPath)
         m.addLayer(lyrxLayer)
-        desc = arcpy.Describe(tempLayer)
-        extent = desc.extent
-        if extent.XMax > xmax:
-            xmax = extent.XMax
-        if extent.XMin < xmin:
-            xmin = extent.XMin
-        if extent.YMax > ymax:
-            ymax = extent.YMax
-        if extent.YMin < ymin:
-            ymin = extent.YMin
-
+        s.addLayer(lyrxLayer)
+        if bool(re.search("(?i)buff.+", featureLyr)):#Search name string containing habitat
+            arcpy.MakeFeatureLayer_management(gdbLyr, featureLyr)
+            #Section that sets and adjust the map extent (via the expand_factor and move_left_factor variables), with the project area as a startpoint
+            project_area_extentFar = arcpy.Describe(featureLyr).extent #This becomes the map extent for the overview map
+            project_area_extentClose = arcpy.Describe(featureLyr).extent #This becomes the map extent for the project area map
+            height = project_area_extentClose.height  
+            width = project_area_extentClose.width
+            project_area_extentClose.XMin -= width * expand_factor
+            project_area_extentClose.YMin -= height * expand_factor
+            project_area_extentClose.XMax += width * expand_factor 
+            project_area_extentClose.YMax += height * expand_factor
+            # Move to the left
+            project_area_extentClose.XMin += width * move_left_factor
+            project_area_extentClose.XMax += width * move_left_factor
+            #Set the map extent for smaller overview map
+            project_area_extentFar.XMin -= width * 16 #The set expand factor for the overview map
+            project_area_extentFar.YMin -= height * 16
+            project_area_extentFar.XMax += width * 16
+            project_area_extentFar.YMax += height * 16
     BuffGdb = os.path.normpath(BuffGdb)
     buffName = BuffGdb.split(os.sep)[len(BuffGdb.split(os.sep)) - 1]
 
@@ -93,19 +95,16 @@ def forestAreamap(prjPath, prjCode, xDim=1.1, yDim=1.1, dpi=300):
     buff_cim.renderer.symbol.symbol.symbolLayers[1].enable = "False"
     buffLyr.setDefinition(buff_cim)
 
-    # Set the extent of the exported map
-    extent.YMax = ymax + (ymax - ymin) * yDim
-    extent.XMax = xmax + (xmax - xmin) * xDim
-    extent.YMin = ymin - (ymax - ymin) * yDim
-    extent.XMin = xmin - (xmax - xmin) * xDim
-
     layout = aprx.listLayouts("Kartmall - Rapportanpassad fyrkantig")[0]
     map_frame = layout.listElements("MAPFRAME_ELEMENT", "braveNewFrame")[0]
+    small_frame = layout.listElements("MAPFRAME_ELEMENT", "smallFrame")[0]
 
     lay_legend = layout.listElements("legend_element", "*")[0]
     lay_legend.items[0]
 
-    map_frame.camera.setExtent(extent)
+    map_frame.camera.setExtent(project_area_extentClose)
+    small_frame.camera.setExtent(project_area_extentFar)
+
     output_path = os.path.join(prjPath, (prjCode + "_SurveyAreaMap.jpg"))
 
     layout.exportToJPEG(output_path, resolution=dpi)
@@ -145,7 +144,7 @@ def letter(index):
         return None  # Handle out-of-range indices
 
 def forestspelplatsMap(prjCode, downPath, expand_factor, dpi):
-    """A function that generates an eagle flight map, using lyrx/aprx file from github repository together with download webmap data from AGOl
+    """A function that generates a map of mating grounds for forestBirds, using lyrx/aprx file from github repository together with download webmap data from AGOl
     Parameter: PrjCode: String with the project code, downPath: String with the path to the download folder with the AGOL data, expand_factor: Float/integer setting how much map the extent should extend beyond the largest layer, dpi: integer setting the pixel density of the exported map"""
     # Set overwriteOutput to True to overwrite existing data
     arcpy.env.overwriteOutput = True
@@ -202,7 +201,6 @@ def forestspelplatsMap(prjCode, downPath, expand_factor, dpi):
             ArtName = featureLyr
             for lyrSymb in lyrxPaths:
                 if re.search("(?i)Obspktart.+\.lyrx", lyrSymb):
-                    print("Its Art!")
                     arcpy.management.ApplySymbologyFromLayer(featureLyr, lyrSymb) # Adds the symbology layer from pre-existing layer to the new layer downloaded from AGOL
                     ArtLyrNew = os.path.join(downPath, ArtName + ".lyrx")
                     arcpy.management.SaveToLayerFile(featureLyr, ArtLyrNew)
@@ -213,7 +211,6 @@ def forestspelplatsMap(prjCode, downPath, expand_factor, dpi):
             SparName = featureLyr
             for lyrSymb in lyrxPaths:
                 if re.search("(?i)Obspktspar.+\.lyrx", lyrSymb):
-                    print("Time to Spar!")
                     arcpy.management.ApplySymbologyFromLayer(featureLyr, lyrSymb) # Adds the symbology layer from pre-existing layer to the new layer downloaded from AGOL
                     SparLyrNew = os.path.join(downPath, SparName + ".lyrx")
                     arcpy.management.SaveToLayerFile(featureLyr, SparLyrNew)
@@ -224,17 +221,15 @@ def forestspelplatsMap(prjCode, downPath, expand_factor, dpi):
             SpelName = featureLyr
             for lyrSym in lyrxPaths:
                 if re.search("(?i)Spelplatsinventering.+\.lyrx", lyrSym):
-                    print("Spel lite!")
                     arcpy.management.ApplySymbologyFromLayer(featureLyr, lyrSym) # Adds the symbology layer from pre-existing layer to the new layer downloaded from AGOL
                     SpelLyrNew = os.path.join(downPath, SpelName + ".lyrx")
                     arcpy.management.SaveToLayerFile(featureLyr, SpelLyrNew)
 
-    # Perform logic to calculate the map extent based on the layers' extents
-    logicGate = True
+    #Locates the extent of the mating ground, and then expand the project area extent with the set expand_factor 
     for gdbLayr in projAreaList:
         arcpy.env.workspace = os.path.split(gdbLayr)[0]
         featureLyr = os.path.basename(gdbLayr)
-        if logicGate:
+        if re.search("(?i).+inventering.+yta", featureLyr):
             project_area_extent = arcpy.Describe(featureLyr).extent
             height = project_area_extent.height
             width = project_area_extent.width
@@ -242,33 +237,9 @@ def forestspelplatsMap(prjCode, downPath, expand_factor, dpi):
             project_area_extent.YMin -= height * expand_factor
             project_area_extent.XMax += width * expand_factor
             project_area_extent.YMax += height * expand_factor
-            logicGate = False
-        else:
-            new_project_area_extent = arcpy.Describe(featureLyr).extent
-            newHeight = new_project_area_extent.height
-            newWidth = new_project_area_extent.width
-            if newHeight > height:
-                print("I reached an ever greater height!")
-                project_area_extent.YMin -= (newHeight - height)
-                project_area_extent.YMax += (newHeight - height)
-            if newWidth > width:
-                print("Wow, you got even wider?!")
-                project_area_extent.YMin -= (newWidth - width)
-                project_area_extent.YMax += (newWidth - width)
 
-    #YMax = 6292112.988861112
-    #XMin = 429183.7543780688
-    #XMax = 431273.9668918271
-    #YMin = 6291021.580428295
-    #project_area_extent.YMin = YMin
-    #project_area_extent.YMax = YMax
-    #project_area_extent.XMin = XMin
-    #project_area_extent.XMax = XMax
-    #arcpy.analysis.Buffer(SpelPlatsGdb, os.path.join(downPath,"buff_SpelPlats.shp", 500))
-    #arcpy.env.extent = os.path.join(downPath,"buff_SpelPlats.shp")
-    
     # Create a new ArcGIS project
-    aprxPath = os.path.join(downPath, "blank.aprx")
+    aprxPath = os.path.join(downPath, "forestBlank.aprx")
     aprx = arcpy.mp.ArcGISProject(aprxPath)
     # Pulls out the map object, which layers will later be sent into.
     m = aprx.listMaps("Spelplats")[0]
@@ -284,19 +255,17 @@ def forestspelplatsMap(prjCode, downPath, expand_factor, dpi):
     SparLyr = m.listLayers(SparName)[0]
     SpelLyr = m.listLayers(SpelName)[0]
 
-    # Use this line to check the order of layers and see that the movement changes became as intended
-    nameList = [m.listLayers()[layerIndx].name for layerIndx in range(len(m.listLayers())-1)] # Uncomment to see names and order of added layers.
+    #nameList = [m.listLayers()[layerIndx].name for layerIndx in range(len(m.listLayers())-1)] # Uncomment to see names and order of added layers.
 
-    # Move the layers in the desired order
+    #Move the layers in the desired order
     m.moveLayer(SparLyr, ArtLyr, "BEFORE")
-    #m.moveLayer(buffLyr, projLyr, "BEFORE")
-    #m.moveLayer(rovobsLyr, flghtLyr, "BEFORE")
 
-    # Rename the layers
-    #ArtLyr.name = "Observationspunkt"
+    #Rename the layers
+    ArtLyr.name = "Observationspunkt"
     SparLyr.name = "Tjäder spillning"
     SpelLyr.name = "Spelplats Tjäder"
 
+    # Use this line to check the order of layers and see that the movement changes became as intended
     # Get the layout and map frame
     layout = aprx.listLayouts("Kartmall - spelplats")[0]
     map_frame = layout.listElements("MAPFRAME_ELEMENT", "braveNewFrame")[0]
@@ -306,7 +275,12 @@ def forestspelplatsMap(prjCode, downPath, expand_factor, dpi):
 
     # Set the scale bar width relative to the layout size
     scale_bar = layout.listElements("MAPSURROUND_ELEMENT", "Skalstock vit")[0]
-    scale_bar.elementWidth = layout.pageWidth / 2
+
+    # Assuming you want the scale bar width to be a certain percentage of the layout width
+    scale_bar_percentage = 25  # Adjust this percentage as needed
+    scale_bar_width = (layout.pageWidth * scale_bar_percentage) / 100
+
+    scale_bar.elementWidth = scale_bar_width
 
     # Get the legend element
     legend = layout.listElements("LEGEND_ELEMENT", "Legend")[0]
@@ -320,4 +294,4 @@ def forestspelplatsMap(prjCode, downPath, expand_factor, dpi):
 
     # Clean up resources and return a success message
     del aprx
-    return print(f"Eagle flight map and aprx-file were exported to {downPath}")
+    return output_jpg_path
