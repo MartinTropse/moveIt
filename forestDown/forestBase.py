@@ -146,7 +146,7 @@ def letter(index):
     else:
         return None  # Handle out-of-range indices
 
-def forestspelplatsMap(prjCode, downPath, expand_factor, dpi):
+def forestspelplatsMap(downPath, prjCode, expand_factor, dpi):
     """A function that generates a map of mating grounds for forestBirds, using lyrx/aprx file from github repository together with download webmap data from AGOl
     Parameter: PrjCode: String with the project code, downPath: String with the path to the download folder with the AGOL data, expand_factor: Float/integer setting how much map the extent should extend beyond the largest layer, dpi: integer setting the pixel density of the exported map"""
     # Set overwriteOutput to True to overwrite existing data
