@@ -2,6 +2,10 @@ import os
 import re
 import arcpy
 from arcpy import env
+import xlwings as xw
+import pywintypes
+import numpy as np
+import pandas as pd
 
 def forestAreamap(downPath, prjCode, expand_factor, move_left_factor, dpi = 300):
     # Loop that goes through the download folders and identifies the geodatabases.
@@ -298,3 +302,100 @@ def forestspelplatsMap(downPath, prjCode, expand_factor, dpi):
     # Clean up resources and return a success message
     del aprx
     return output_jpg_path
+    
+def create_tableBilaga_1(master_wb, trckObsDf, specObsDf, reportBase):
+    
+    # Concat the 2 dataframes (track, spec)
+    trckObsDf_specObsDf = pd.concat([trckObsDf,specObsDf], ignore_index=True)
+    # Remove white spaces from beginning or end of komment column
+    # (I did that because of https://superuser.com/questions/727108/get-rid-of-extra-space-in-cell-when-using-text-wrap)
+    # But did not really eliminate the white space in the wrapped text column.
+    trckObsDf_specObsDf['KOMMENTAR'] = trckObsDf_specObsDf['KOMMENTAR'].str.strip()
+    # Create N and E columns.
+    # Split the 'Shape' column into two separate columns
+    trckObsDf_specObsDf['E'] = trckObsDf_specObsDf['Shape'].apply(lambda x: int(x[0]))
+    trckObsDf_specObsDf['N'] = trckObsDf_specObsDf['Shape'].apply(lambda x: int(x[1]))
+    # Sort based on date-time
+    # Create datetime column for sorting
+    trckObsDf_specObsDf['DATUM'] = trckObsDf_specObsDf['DATUM'].astype(str)
+    trckObsDf_specObsDf['DATUM'] = trckObsDf_specObsDf['DATUM'].str.split('T').str[0]
+    trckObsDf_specObsDf['datetime'] = pd.to_datetime(trckObsDf_specObsDf['DATUM'] + ' ' + trckObsDf_specObsDf['TID'])
+    trckObsDf_specObsDf_sorted = trckObsDf_specObsDf.sort_values(by='datetime')
+    # Drop the collumns that are not needed.
+    columns_of_interest = ['OBJECTID', 'DATUM', 'TID', 'N', 'E', 'TYP_AV_OBS', 'ART', 'KON', 'KOMMENTAR']
+    trckObsDf_specObsDf_sorted = trckObsDf_specObsDf_sorted.drop(
+            columns=[col for col in trckObsDf_specObsDf_sorted.columns if col not in columns_of_interest]
+            )
+    # Change the date format from 2022-05-15 to 15/5 2022 for example
+    trckObsDf_specObsDf_sorted['DATUM'] = pd.to_datetime(trckObsDf_specObsDf_sorted['DATUM'])
+    trckObsDf_specObsDf_sorted['DATUM'] = trckObsDf_specObsDf_sorted['DATUM'].dt.strftime('%d/%m %Y')
+    # Rename the columns to match the report table.
+    trckObsDf_specObsDf_sorted = trckObsDf_specObsDf_sorted.rename(columns={
+        "OBJECTID": "ID",
+        "DATUM": "Datum",
+        "TID": "Tid",
+        "TYP_AV_OBS" : "Obstyp",
+        "ART": "Art",
+        "KON": "Kön",
+        "KOMMENTAR": "Kommentar"
+        })
+    # Reorder the columns as they should be based on the report template.
+    column_order = ['ID', 'Datum', 'Tid', 'N', 'E', 'Obstyp', 'Art', 'Kön', 'Kommentar']
+    trckObsDf_specObsDf_sorted = trckObsDf_specObsDf_sorted[column_order]
+    # Break the df into chunks
+    num_all_chunks , final_table_chunks = reportBase.break_df_into_chunks(trckObsDf_specObsDf_sorted, 30, 35)
+    # xlwings stuff below.
+    for chunk_num, chunk in enumerate(final_table_chunks):
+        # xlwings stuff below, make the table exactly as we want it.
+        try:
+            sheet = master_wb.sheets[f'Bilaga_1_{chunk_num + 1}'] # Check if sheet already exists
+            # We need to delete it, because during development,
+            # if i kept writing stuff on the sheet that already exists
+            # then the values were changing. 
+            sheet.delete() # If it exists delete it.
+            sheet = master_wb.sheets.add(f'Bilaga_1_{chunk_num + 1}', after=master_wb.sheets[-1]) # And add it again empty.
+        except pywintypes.com_error: # if the above try throws a com_error.
+            sheet = master_wb.sheets.add(f'Bilaga_1_{chunk_num + 1}', after=master_wb.sheets[-1]) # Or add sheet as last sheet.
+        # Add the final_table to the wb_master
+        sheet.range('A1').value = chunk
+        # Delete the index of the df from the wb_master
+        sheet.range('A:A').api.Delete()
+        # Format the table in the xlsx, adjust column width 
+        sheet.api.Cells.Select()
+        sheet.api.Cells.ColumnWidth = 10 # A value that is big enough? The user can change that manually?
+        # Add cell borders.
+        # Find the last row with data.
+        last_row = sheet.range('A1').expand('down').last_cell.row
+        last_column = sheet.range('A1').expand('right').last_cell.column
+        data_range = sheet.range((1, 1), (last_row, last_column))
+        data_range.api.Borders.Weight = 2
+        # Center all cells Horizontal center
+        data_range.api.HorizontalAlignment = xw.constants.HAlign.xlHAlignCenter
+        # Center all cells Vertical center
+        data_range.api.VerticalAlignment = xw.constants.VAlign.xlVAlignCenter
+        # Set font size to 9.
+        data_range.api.Font.Size = 9
+        # Set font name to Arial
+        data_range.api.Font.Name = "Arial"
+        # Change the fill color of the header cell to gray && make the text bold.
+        first_row_range = sheet.range((1, 1), (1, last_column))
+        first_row_range.api.Interior.Color = 13882323  # RGB color code for gray
+        first_row_range.api.Font.Bold = True # Bold header.
+        first_row_range.api.Cells.RowHeight = 20
+        first_row_range.api.VerticalAlignment = xw.constants.VAlign.xlVAlignCenter
+        first_row_range.api.HorizontalAlignment = xw.constants.HAlign.xlHAlignLeft
+        # Change width of ID col.
+        first_col_range = sheet.range((1, 1), (last_row, 1))
+        first_col_range.api.Cells.ColumnWidth = 4
+        # Change width of Kommentar col.
+        last_col_range = sheet.range((1, last_column), (last_row, last_column))
+        last_col_range.api.Cells.WrapText = True # Enable text wrapping
+        last_col_range.api.Cells.ColumnWidth = 20
+        last_col_range.api.HorizontalAlignment = xw.constants.HAlign.xlHAlignLeft # Horizontal allign comment to left.
+        # Change width of Obstyp col.
+        obstyp_col_range = sheet.range((1, last_column-3), (last_row, last_column-3))
+        obstyp_col_range.api.Cells.ColumnWidth = 14
+        # Change width of Tid col.
+        tid_col_range = sheet.range((1, last_column-6), (last_row, last_column-6))
+        tid_col_range.api.Cells.ColumnWidth = 5
+    master_wb.save()  
